@@ -4,19 +4,14 @@
 %}
 
 /*Rules*/
-Declaracion {Token}" "+[a-z][a-z0-9]*
-Token   "int"|"float"|"char"
-Variable [a-z][a-z0-9]*
-Float   ([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)? 
-int   ([0-9]+)([eE][-+]?[0-9]+)? 
-char   .*
-Operator   "+"|"-"|"*"|"/"|"^" 
-Logicos   "&&"|"||"|"~"
-cc   "\""
-Varchar   {cc}{char}{cc}
-Clave   "if"|"else"|"for"|"while"|"do"|"switch"|"scanf"|"printf"|"main"|"void"|case" "+[1-9][0-9]+?:
+Variable ([_]|[a-z])([_]|[a-z0-9])*
+varint 146513541
+OperaAlg   "+"|"-"|"*"|"**"|"/"|"//"|"%"|"<<"|">>"|" & "|"|"|"^"|"~"    
+Operaassing  ">>="|"<<="|"+=""|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"="
+Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
+Clave  "and" | "else" |"is"|"return"|"break"|"for"|"not"|"while"|"continue"|"if"|"or"|"def"|"import"|"pass"|"elif"|"in"|"print" 
 Ifin   "{"|"}"
-Simbolos   "("|")"|","|";"
+Simbolos   "("|")"|","|";"|"["|"]"|":"|"."
 
 %x C_COMMENT
 %%
@@ -71,7 +66,7 @@ fprintf(yyout,"Cte cadena= %s ",yytext);
     }
 }
 
-{Operator} {
+{Operamat} {
     switch((char)*yytext)
     {
     case '+':fprintf(yyout,"Op-sum= %s ",yytext);
