@@ -1,11 +1,17 @@
   
-Variable ([_]|[a-z])([_]|[a-z0-9])*
-varint 146513541
+Variable ([a-zA-Z_])([0-9]|[a-zA-Z_])*
 OperaAlg   "+"|"-"|"*"|"**"|"/"|"//"|"%"|"<<"|">>"|" & "|"|"|"^"|"~"    
 Operaassing ">>="|"<<="|"+="|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"="
 Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
 Clave   and|else|is|return|break|for|not|while|continue|if|or|def|import|pass|elif|in|print|True|False|range
 Simbolos   "("|")"|","|";"|"["|"]"|":"|"."
+%{
+// String
+// Int
+// Longint
+// Imaginario
+// Decimal
+%}
 
 %{
 #include <stdio.h>
@@ -17,6 +23,7 @@ int count=0;
 %}
 
 %%
+
 {Operaassing} {fprintf(yyout,"Op-Assing");}
 {Comparator} {fprintf(yyout,"Comparator");}
 {OperaAlg} {fprintf(yyout,"Op-Algebra");}
@@ -28,7 +35,11 @@ int count=0;
       }
    fprintf(yyout,"%s",yytext);
 }
-[\n] {fprintf(yyout,"\n");}
+{Simbolos} {fprintf(yyout,"%s",yytext);}
+{Variable} {fprintf(yyout,"%s",yytext);}
+
+" " {fprintf(yyout," ",yytext);}
+[0-9](.*)(" ")? {fprintf(yyout,"Unknown Word= -->%s<--",yytext);}
 %%
   
 int yywrap(){} 
