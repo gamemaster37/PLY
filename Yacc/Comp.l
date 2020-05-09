@@ -1,25 +1,24 @@
-  
 Variable ([a-zA-Z_])([0-9]|[a-zA-Z_])*
 OperaAlg   "+"|"-"|"*"|"**"|"/"|"//"|"%"|"<<"|">>"|" & "|"|"|"^"|"~"    
 Operaassing ">>="|"<<="|"+="|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"="
 Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
 Clave   and|else|is|return|break|for|not|while|continue|if|or|def|import|pass|elif|in|print|True|False|range
 Simbolos   "("|")"|","|";"|"["|"]"|":"|"."
-%{
-// String
-// Int
-// Longint
-// Imaginario
-// Decimal
-%}
+cc   "\""
+String   {cc}(.*){cc}
+Integer [-+]?[0-9]+([Ee][+-]?[0-9]+)?	
+Decimal [-+]?[0-9]*"."[0-9]+([Ee][+-]?[0-9]+)?
+Long {Integer}(l|L)  
+Imaginario ({Integer}|{Decimal})(j|J) 
 
 %{
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-FILE* fp; 
-int count=0;
+int column = 1;
+void count(void);
+FILE* fp;
 %}
 
 %%
@@ -36,13 +35,25 @@ int count=0;
    fprintf(yyout,"%s",yytext);
 }
 {Simbolos} {fprintf(yyout,"%s",yytext);}
-{Variable} {fprintf(yyout,"%s",yytext);}
-
-" " {fprintf(yyout," ",yytext);}
+{String} {fprintf(yyout,"String");}
+{Integer} {fprintf(yyout,"Integer");}
+{Decimal} {fprintf(yyout,"Decimal");}
+{Long} {fprintf(yyout,"Long");}  
+{Imaginario} {fprintf(yyout,"Imaginario");}
+{Variable} {fprintf(yyout,"Identificador");}
 [0-9](.*)(" ")? {fprintf(yyout,"Unknown Word= -->%s<--",yytext);}
 %%
-  
+
 int yywrap(){} 
+void count(void)
+{
+	int i;
+	for (i = 0; yytext[i] != '\0'; i++)
+		if (yytext[i] == '\n')
+			column++;
+
+	ECHO;
+}
 
 /* define a linked list of words and types */
 struct word {
@@ -69,3 +80,4 @@ int main(){
       printf("Acabo \n");
       return 0; 
 } 
+

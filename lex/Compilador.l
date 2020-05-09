@@ -11,6 +11,8 @@ Operaassing  ">>="|"<<="|"+=""|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"=
 Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
 Clave  "and" | "else" |"is"|"return"|"break"|"for"|"not"|"while"|"continue"|"if"|"or"|"def"|"import"|"pass"|"elif"|"in"|"print" 
 Ifin   "{"|"}"
+cc   "\""
+String   {cc}{.*}{cc}
 Simbolos   "("|")"|","|";"|"["|"]"|":"|"."
 
 %x C_COMMENT
