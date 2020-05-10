@@ -25,9 +25,9 @@ FILE* fp;
 %}
 
 %%
-{OperaBasic} {fprintf(yyout,"Operamesta"); return(OP-ESTA);}
-{OperaAlg} {fprintf(yyout,"Op-Algebra");return(OP-AL);}
-{Operaassing} {fprintf(yyout,"Op-Assing");return(OP-ASS);}
+{OperaBasic} {fprintf(yyout,"Operamesta"); return(OPESTA);}
+{OperaAlg} {fprintf(yyout,"Op-Algebra");return(OPAL);}
+{Operaassing} {fprintf(yyout,"Op-Assing");return(OPASS);}
 {Comparator} {fprintf(yyout,"Comparator");return(COMP);}
 {Clave} {
     int i=0;
@@ -46,6 +46,7 @@ FILE* fp;
 {Imaginario} {fprintf(yyout,"Imaginario");return(IMG);}
 {Variable} {fprintf(yyout,"Identificador");return(VAR);}
 {Coment} {}
+[\n] {return(SALTO);}
 %%
 
 int yywrap(){} 

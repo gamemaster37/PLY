@@ -1,14 +1,13 @@
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,9 +15,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -33,163 +30,97 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Tokens.  */
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     IDENTIFIER = 258,
-     CONSTANT = 259,
-     STRING_LITERAL = 260,
-     SIZEOF = 261,
-     PTR_OP = 262,
-     INC_OP = 263,
-     DEC_OP = 264,
-     LEFT_OP = 265,
-     RIGHT_OP = 266,
-     LE_OP = 267,
-     GE_OP = 268,
-     EQ_OP = 269,
-     NE_OP = 270,
-     AND_OP = 271,
-     OR_OP = 272,
-     MUL_ASSIGN = 273,
-     DIV_ASSIGN = 274,
-     MOD_ASSIGN = 275,
-     ADD_ASSIGN = 276,
-     SUB_ASSIGN = 277,
-     LEFT_ASSIGN = 278,
-     RIGHT_ASSIGN = 279,
-     AND_ASSIGN = 280,
-     XOR_ASSIGN = 281,
-     OR_ASSIGN = 282,
-     TYPE_NAME = 283,
-     TYPEDEF = 284,
-     EXTERN = 285,
-     STATIC = 286,
-     AUTO = 287,
-     REGISTER = 288,
-     INLINE = 289,
-     RESTRICT = 290,
-     CHAR = 291,
-     SHORT = 292,
-     INT = 293,
-     LONG = 294,
-     SIGNED = 295,
-     UNSIGNED = 296,
-     FLOAT = 297,
-     DOUBLE = 298,
-     CONST = 299,
-     VOLATILE = 300,
-     VOID = 301,
-     CHARVALUE = 302,
-     FLOATVALUE = 303,
-     INTVALUE = 304,
-     BOOL = 305,
-     COMPLEX = 306,
-     IMAGINARY = 307,
-     SALTO = 308,
-     STRUCT = 309,
-     UNION = 310,
-     ENUM = 311,
-     ELLIPSIS = 312,
-     CASE = 313,
-     DEFAULT = 314,
-     IF = 315,
-     ELSE = 316,
-     SWITCH = 317,
-     WHILE = 318,
-     FOR = 319,
-     GOTO = 320,
-     CONTINUE = 321,
-     BREAK = 322,
-     RETURN = 323,
-     DO = 324,
-     PRINTF = 325,
-     SCANF = 326
-   };
+  enum yytokentype
+  {
+    OPESTA = 258,
+    OPAL = 259,
+    OPASS = 260,
+    COMP = 261,
+    STR = 262,
+    INT = 263,
+    DEC = 264,
+    LONG = 265,
+    IMG = 266,
+    VAR = 267,
+    SALTO = 268,
+    AND = 269,
+    ELSE = 270,
+    IS = 271,
+    RETURN = 272,
+    BREAK = 273,
+    FOR = 274,
+    NOT = 275,
+    WHILE = 276,
+    CONTINUE = 277,
+    IF = 278,
+    OR = 279,
+    DEF = 280,
+    IMPORT = 281,
+    PASS = 282,
+    ELIF = 283,
+    IN = 284,
+    PRINT = 285,
+    TRUE = 286,
+    FALSE = 287,
+    RANGE = 288
+  };
 #endif
 /* Tokens.  */
-#define IDENTIFIER 258
-#define CONSTANT 259
-#define STRING_LITERAL 260
-#define SIZEOF 261
-#define PTR_OP 262
-#define INC_OP 263
-#define DEC_OP 264
-#define LEFT_OP 265
-#define RIGHT_OP 266
-#define LE_OP 267
-#define GE_OP 268
-#define EQ_OP 269
-#define NE_OP 270
-#define AND_OP 271
-#define OR_OP 272
-#define MUL_ASSIGN 273
-#define DIV_ASSIGN 274
-#define MOD_ASSIGN 275
-#define ADD_ASSIGN 276
-#define SUB_ASSIGN 277
-#define LEFT_ASSIGN 278
-#define RIGHT_ASSIGN 279
-#define AND_ASSIGN 280
-#define XOR_ASSIGN 281
-#define OR_ASSIGN 282
-#define TYPE_NAME 283
-#define TYPEDEF 284
-#define EXTERN 285
-#define STATIC 286
-#define AUTO 287
-#define REGISTER 288
-#define INLINE 289
-#define RESTRICT 290
-#define CHAR 291
-#define SHORT 292
-#define INT 293
-#define LONG 294
-#define SIGNED 295
-#define UNSIGNED 296
-#define FLOAT 297
-#define DOUBLE 298
-#define CONST 299
-#define VOLATILE 300
-#define VOID 301
-#define CHARVALUE 302
-#define FLOATVALUE 303
-#define INTVALUE 304
-#define BOOL 305
-#define COMPLEX 306
-#define IMAGINARY 307
-#define SALTO 308
-#define STRUCT 309
-#define UNION 310
-#define ENUM 311
-#define ELLIPSIS 312
-#define CASE 313
-#define DEFAULT 314
-#define IF 315
-#define ELSE 316
-#define SWITCH 317
-#define WHILE 318
-#define FOR 319
-#define GOTO 320
-#define CONTINUE 321
-#define BREAK 322
-#define RETURN 323
-#define DO 324
-#define PRINTF 325
-#define SCANF 326
+#define OPESTA 258
+#define OPAL 259
+#define OPASS 260
+#define COMP 261
+#define STR 262
+#define INT 263
+#define DEC 264
+#define LONG 265
+#define IMG 266
+#define VAR 267
+#define SALTO 268
+#define AND 269
+#define ELSE 270
+#define IS 271
+#define RETURN 272
+#define BREAK 273
+#define FOR 274
+#define NOT 275
+#define WHILE 276
+#define CONTINUE 277
+#define IF 278
+#define OR 279
+#define DEF 280
+#define IMPORT 281
+#define PASS 282
+#define ELIF 283
+#define IN 284
+#define PRINT 285
+#define TRUE 286
+#define FALSE 287
+#define RANGE 288
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef int YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
+
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
+
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
