@@ -1,6 +1,5 @@
 Variable ([a-zA-Z_])([0-9]|[a-zA-Z_])*
-OperaBasic [-+]
-OperaAlg   "*"|"**"|"/"|"//"|"%"|"<<"|">>"|"&"|"|"|"^"|"~"  
+OperaAlg   "**"|"/"|"//"|"%"|"<<"|">>"|"&"|"|"|"^"|"~"  
 Operaassing ">>="|"<<="|"+="|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"="
 Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
 Clave   and|else|is|return|break|for|not|while|continue|if|or|def|import|pass|elif|in|print|True|False|range
@@ -19,32 +18,35 @@ Coment "#".*
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "y.tab.h"
 int column = 1;
 void count(void);
 FILE* fp;
 %}
 
 %%
-{OperaBasic} {fprintf(yyout,"Operamesta"); return(OPESTA);}
-{OperaAlg} {fprintf(yyout,"Op-Algebra");return(OPAL);}
-{Operaassing} {fprintf(yyout,"Op-Assing");return(OPASS);}
-{Comparator} {fprintf(yyout,"Comparator");return(COMP);}
+"*" {return(MULT);}
+"+" {return(MAS);}
+"-" {return(MENOS);}
+
+{OperaAlg} {return(OPAL);}
+{Operaassing} {return(OPASS);}
+{Comparator} {return(COMP);}
 {Clave} {
     int i=0;
       while(yytext[i]) {
 			yytext[i]=toupper(yytext[i]);
             i++;
       }
-   fprintf(yyout,"%s",yytext);
-   return(yytext);
+   return(*yytext);
 }
-{Simbolos} {fprintf(yyout,"%s",yytext);return(yytext);}
-{String} {fprintf(yyout,"String");return(STR);}
-{Integer} {fprintf(yyout,"Integer");return(INT);}
-{Decimal} {fprintf(yyout,"Decimal");return(DEC);}
-{Long} {fprintf(yyout,"Long");return(LONG);}  
-{Imaginario} {fprintf(yyout,"Imaginario");return(IMG);}
-{Variable} {fprintf(yyout,"Identificador");return(VAR);}
+{Simbolos} {return(*yytext);}
+{String} {return(STR);}
+{Integer} {return(INT);}
+{Decimal} {return(DEC);}
+{Long} {return(LONG);}  
+{Imaginario} {return(IMG);}
+{Variable} {return(VAR);}
 {Coment} {}
 [\n] {return(SALTO);}
 %%
@@ -67,22 +69,4 @@ struct word {
 };
 struct word *word_list; /* first element in word list */
 extern void *malloc() ;
-
-   
-int main(){ 
-  
-      extern FILE *yyin, *yyout;
-      /*char filename[50]; 
-      printf("Enter the filename: \n"); 
-      scanf("%s",filename); 
-      fp = fopen(filename,"r"); 
-      yyin = fp;*/
-
-      yyin = fopen("prueba", "r");
-      yyout = fopen("output.txt", "w");
-
-      yylex(); 
-      printf("Acabo \n");
-      return 0; 
-} 
 

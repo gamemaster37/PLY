@@ -360,8 +360,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 15
-#define YY_END_OF_BUFFER 16
+#define YY_NUM_RULES 17
+#define YY_END_OF_BUFFER 18
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -371,18 +371,18 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[104] =
     {   0,
-        0,    0,   16,   15,   14,   15,   15,   13,    2,    2,
-       15,    6,    2,    1,    1,    6,    2,    8,    4,    3,
-        4,   12,   12,   12,    2,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,    2,    2,    4,
-        0,    7,   13,    3,    0,    2,    9,    2,    0,    8,
-        0,   11,   10,    2,    2,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,    5,   12,   12,   12,   12,   12,
-       12,   12,    0,    0,    8,   12,   12,   12,   12,   12,
-       12,   12,   12,   12,   12,   12,   12,    0,    9,   12,
-       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+        0,    0,   18,   17,   16,   17,   17,   15,    4,    4,
+       17,    8,    1,    2,    3,    8,    4,   10,    6,    5,
+        6,   14,   14,   14,    4,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,    4,    4,    6,
+        0,    9,   15,    5,    0,    4,   11,    4,    0,   10,
+        0,   13,   12,    4,    4,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,    7,   14,   14,   14,   14,   14,
+       14,   14,    0,    0,   10,   14,   14,   14,   14,   14,
+       14,   14,   14,   14,   14,   14,   14,    0,   11,   14,
+       14,   14,   14,   14,   14,   14,   14,   14,   14,   14,
 
-       12,   12,    0
+       14,   14,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -536,15 +536,16 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "Comp.l"
-#line 18 "Comp.l"
+#line 17 "Comp.l"
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "y.tab.h"
 int column = 1;
 void count(void);
 FILE* fp;
-#line 548 "lex.yy.c"
+#line 549 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -764,7 +765,7 @@ YY_DECL
 	{
 #line 27 "Comp.l"
 
-#line 768 "lex.yy.c"
+#line 769 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -824,89 +825,98 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 28 "Comp.l"
-{fprintf(yyout,"Operamesta"); return(OPESTA);}
+{return(MULT);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 29 "Comp.l"
-{fprintf(yyout,"Op-Algebra");return(OPAL);}
+{return(MAS);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 30 "Comp.l"
-{fprintf(yyout,"Op-Assing");return(OPASS);}
+{return(MENOS);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 31 "Comp.l"
-{fprintf(yyout,"Comparator");return(COMP);}
+#line 32 "Comp.l"
+{return(OPAL);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 32 "Comp.l"
+#line 33 "Comp.l"
+{return(OPASS);}
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 34 "Comp.l"
+{return(COMP);}
+	YY_BREAK
+case 7:
+YY_RULE_SETUP
+#line 35 "Comp.l"
 {
     int i=0;
       while(yytext[i]) {
 			yytext[i]=toupper(yytext[i]);
             i++;
       }
-   fprintf(yyout,"%s",yytext);
-   return(yytext);
+   return(*yytext);
 }
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 41 "Comp.l"
-{fprintf(yyout,"%s",yytext);return(yytext);}
-	YY_BREAK
-case 7:
-/* rule 7 can match eol */
-YY_RULE_SETUP
-#line 42 "Comp.l"
-{fprintf(yyout,"String");return(STR);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 43 "Comp.l"
-{fprintf(yyout,"Integer");return(INT);}
+{return(*yytext);}
 	YY_BREAK
 case 9:
+/* rule 9 can match eol */
 YY_RULE_SETUP
 #line 44 "Comp.l"
-{fprintf(yyout,"Decimal");return(DEC);}
+{return(STR);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 45 "Comp.l"
-{fprintf(yyout,"Long");return(LONG);}  
+{return(INT);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 46 "Comp.l"
-{fprintf(yyout,"Imaginario");return(IMG);}
+{return(DEC);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 47 "Comp.l"
-{fprintf(yyout,"Identificador");return(VAR);}
+{return(LONG);}  
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 48 "Comp.l"
-{}
+{return(IMG);}
 	YY_BREAK
 case 14:
-/* rule 14 can match eol */
 YY_RULE_SETUP
 #line 49 "Comp.l"
-{return(SALTO);}
+{return(VAR);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 50 "Comp.l"
+{}
+	YY_BREAK
+case 16:
+/* rule 16 can match eol */
+YY_RULE_SETUP
+#line 51 "Comp.l"
+{return(SALTO);}
+	YY_BREAK
+case 17:
+YY_RULE_SETUP
+#line 52 "Comp.l"
 ECHO;
 	YY_BREAK
-#line 910 "lex.yy.c"
+#line 920 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1907,7 +1917,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 50 "Comp.l"
+#line 52 "Comp.l"
 
 
 
@@ -1929,23 +1939,5 @@ struct word {
 };
 struct word *word_list; /* first element in word list */
 extern void *malloc() ;
-
-   
-int main(){ 
-  
-      extern FILE *yyin, *yyout;
-      /*char filename[50]; 
-      printf("Enter the filename: \n"); 
-      scanf("%s",filename); 
-      fp = fopen(filename,"r"); 
-      yyin = fp;*/
-
-      yyin = fopen("prueba", "r");
-      yyout = fopen("output.txt", "w");
-
-      yylex(); 
-      printf("Acabo \n");
-      return 0; 
-} 
 
 
