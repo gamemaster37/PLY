@@ -1,16 +1,5 @@
-%token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF
-%token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
-%token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
-%token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
-%token XOR_ASSIGN OR_ASSIGN TYPE_NAME
-
-%token TYPEDEF EXTERN STATIC AUTO REGISTER INLINE RESTRICT
-%token CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE CONST VOLATILE VOID
-%token CHARVALUE FLOATVALUE INTVALUE
-%token BOOL COMPLEX IMAGINARY SALTO
-%token STRUCT UNION ENUM ELLIPSIS
-
-%token CASE DEFAULT IF ELSE SWITCH WHILE FOR GOTO CONTINUE BREAK RETURN DO PRINTF SCANF
+%token OP-ESTA OP-AL OP-ASS COMP STR INT DEC LONG IMG VAR
+%token AND ELSE IS RETURN BREAK FOR NOT WHILE CONTINUE IF OR DEF IMPORT PASS ELIF IN PRINT TRUE FALSE RANGE
 
 %start MONDA
 
@@ -23,47 +12,10 @@ MONDA: MULTIMONDA | MONDA MULTIMONDA |MONDA error|;
 
 MULTIMONDA: Declaracion | Condicionals | ESfline | Varuse | Shiwtchline | Declaracion SALTO {column++;};
 
-Condicionals:Whileline | Ifline | Doesline | Forline;
-Whileline: WHILE '('Condicion')''{'MONDA'}';
-Ifline: IF '('Condicion')''{'MONDA'}'| IF '('Condicion')''{'MONDA'}'ELSE'{'MONDA'}';
-Doesline: DO '{'MONDA'}' WHILE '('Condicion')';
-
-Shiwtchline: SWITCH '('IDENTIFIER')''{'Caseline'}';
-Caseline: Caos DEFAULT ':' MONDA BREAKK | Caos; 
-Caos: CINT | CCHAR | CFLOAT;
-BREAKK: BREAK ';' |;
-CINT: CASE INTVALUE ':' MONDA BREAKK CINT |;
-CCHAR: CASE CHARVALUE ':' MONDA BREAKK CCHAR |;
-CFLOAT: CASE FLOATVALUE ':' MONDA BREAKK CFLOAT |;
-
 Forline: FOR '(' AUXfor IDENTIFIER '=' HYDRA ';' IDENTIFIER Cond_type HYDRA ';' IDENTIFIER ForPACK ')' '{'MONDA'}';
 HYDRA: IDENTIFIER | INTVALUE;
 AUXfor: INT | ;
 ForPACK: INC_OP | DEC_OP | '+' HYDRA | '-' HYDRA;
-
-Condicion: Condicion Cond_Mod Condicion | '~(' Condicion ')' | Tundra Cond_type Tundra;
-Tundra: IDENTIFIER | INTVALUE | CHARVALUE | FLOATVALUE;
-Cond_type: LE_OP | GE_OP | EQ_OP | NE_OP | '<' | '>';
-Cond_Mod: OR_OP | AND_OP;
-
-ESF:PRINTF | SCANF ;
-ESfline: ESF '(' CHARVALUE ',' Tundra ')' ';';
-
-Varuse:IDENTIFIER IDPACK ';';
-IDPACK: INC_OP | DEC_OP | '=' OPERAR | '=' CHARVALUE;
-OPERAR: OPERAR Operation OPERAR | '(' OPERAR ')' | INTVALUE | FLOATVALUE | IDENTIFIER ;
-Operation: '+' | '-' | '/' | '*';
-
-Declaracion: Dechar | Deint | Defloat;
-Dechar:CHAR Dechar2';';
-Dechar2:Dechar3 | Dechar3 ',' Dechar2;
-Dechar3: IDENTIFIER '=' CHARVALUE | IDENTIFIER;
-Deint:INT Deint2';';
-Deint2:Deint3 | Deint3 ',' Deint2;
-Deint3: IDENTIFIER '=' INTVALUE | IDENTIFIER;
-Defloat:FLOAT Defloat2';';
-Defloat2:Defloat3 | Defloat3 ',' Defloat2;
-Defloat3: IDENTIFIER '=' FLOATVALUE | IDENTIFIER;
 
 
 %%

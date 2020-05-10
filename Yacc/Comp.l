@@ -1,15 +1,18 @@
 Variable ([a-zA-Z_])([0-9]|[a-zA-Z_])*
-OperaAlg   "+"|"-"|"*"|"**"|"/"|"//"|"%"|"<<"|">>"|" & "|"|"|"^"|"~"    
+OperaBasic [-+]
+OperaAlg   "*"|"**"|"/"|"//"|"%"|"<<"|">>"|"&"|"|"|"^"|"~"  
 Operaassing ">>="|"<<="|"+="|"-="|"*="|"/="|"//="|"&="|"|="|"^="|"**="|"%="|"="
 Comparator   "<"|">"|"<="|">="|"=="|"!="|"<>"  
 Clave   and|else|is|return|break|for|not|while|continue|if|or|def|import|pass|elif|in|print|True|False|range
 Simbolos   "("|")"|","|";"|"["|"]"|":"|"."
 cc   "\""
-String   {cc}(.*){cc}
-Integer [-+]?[0-9]+([Ee][+-]?[0-9]+)?	
-Decimal [-+]?[0-9]*"."[0-9]+([Ee][+-]?[0-9]+)?
+vv   "\'"
+String   ({cc}([^\"])*{cc}|{vv}([^\'])*{vv})
+Integer [0-9]+([Ee][+-]?[0-9]+)?	
+Decimal [0-9]*"."[0-9]+([Ee][+-]?[0-9]+)?
 Long {Integer}(l|L)  
 Imaginario ({Integer}|{Decimal})(j|J) 
+Coment "#".*
 
 %{
 #include <stdio.h>
@@ -22,10 +25,10 @@ FILE* fp;
 %}
 
 %%
-
-{Operaassing} {fprintf(yyout,"Op-Assing");}
-{Comparator} {fprintf(yyout,"Comparator");}
-{OperaAlg} {fprintf(yyout,"Op-Algebra");}
+{OperaBasic} {fprintf(yyout,"Operamesta"); return(OP-ESTA);}
+{OperaAlg} {fprintf(yyout,"Op-Algebra");return(OP-AL);}
+{Operaassing} {fprintf(yyout,"Op-Assing");return(OP-ASS);}
+{Comparator} {fprintf(yyout,"Comparator");return(COMP);}
 {Clave} {
     int i=0;
       while(yytext[i]) {
@@ -33,15 +36,16 @@ FILE* fp;
             i++;
       }
    fprintf(yyout,"%s",yytext);
+   return(yytext);
 }
-{Simbolos} {fprintf(yyout,"%s",yytext);}
-{String} {fprintf(yyout,"String");}
-{Integer} {fprintf(yyout,"Integer");}
-{Decimal} {fprintf(yyout,"Decimal");}
-{Long} {fprintf(yyout,"Long");}  
-{Imaginario} {fprintf(yyout,"Imaginario");}
-{Variable} {fprintf(yyout,"Identificador");}
-[0-9](.*)(" ")? {fprintf(yyout,"Unknown Word= -->%s<--",yytext);}
+{Simbolos} {fprintf(yyout,"%s",yytext);return(yytext);}
+{String} {fprintf(yyout,"String");return(STR);}
+{Integer} {fprintf(yyout,"Integer");return(INT);}
+{Decimal} {fprintf(yyout,"Decimal");return(DEC);}
+{Long} {fprintf(yyout,"Long");return(LONG);}  
+{Imaginario} {fprintf(yyout,"Imaginario");return(IMG);}
+{Variable} {fprintf(yyout,"Identificador");return(VAR);}
+{Coment} {}
 %%
 
 int yywrap(){} 

@@ -1,5 +1,22 @@
-Unknown Word= -->6dasjkdjadwo<--
-Integer
-Decimal
-Imaginario
-Long
+DEF Identificador(Identificador, Identificador):
+    Identificador Op-Assing FALSE
+    FOR Identificador IN RANGE(Identificador(Identificador)):
+        Identificador Op-Assing? TRUE
+        FOR Identificador IN RANGE(Identificador(Identificador[Identificador])):
+            Identificador Op-Assing Identificador AND Identificador[Identificador[Identificador][Identificador]]
+        Identificador Op-Assing Identificador OR Identificador
+    RETURN Identificador
+
+
+WHILE IntegerOp-AlgebraIdentificador Comparator Long
+    Identificador Op-Assing OpersingDecimal Opersing Imaginario
+    IF Identificador Comparator Integer:
+        BREAK
+DEF Identificador():
+    PASS
+PRINT(String, Identificador, String, IntegerOp-AlgebraIdentificadorOpersingIntegerOp-Algebra(IntegerOpersingIdentificador))
+
+
+
+Identificador Op-Assing []
+Identificador Op-Assing []
