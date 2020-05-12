@@ -28,10 +28,10 @@ FILE* fp;
 "*" {return(MULT);}
 "+" {return(MAS);}
 "-" {return(MENOS);}
-
 {OperaAlg} {return(OPAL);}
 {Operaassing} {return(OPASS);}
 {Comparator} {return(COMP);}
+{Simbolos} {return(*yytext);}
 {Clave} {
     int i=0;
       while(yytext[i]) {
@@ -40,7 +40,6 @@ FILE* fp;
       }
    return(*yytext);
 }
-{Simbolos} {return(*yytext);}
 {String} {return(STR);}
 {Integer} {return(INT);}
 {Decimal} {return(DEC);}
@@ -49,6 +48,8 @@ FILE* fp;
 {Variable} {return(VAR);}
 {Coment} {}
 [\n] {return(SALTO);}
+" " {}
+. {return(*yytext);}
 %%
 
 int yywrap(){} 
