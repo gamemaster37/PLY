@@ -57,9 +57,7 @@ extern int yydebug;
     SALTO = 267,
     MULT = 268,
     MENOS = 269,
-    MAS = 270,
-    FOR = 271,
-    IN = 272
+    MAS = 270
   };
 #endif
 /* Tokens.  */
@@ -76,8 +74,6 @@ extern int yydebug;
 #define MULT 268
 #define MENOS 269
 #define MAS 270
-#define FOR 271
-#define IN 272
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

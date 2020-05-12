@@ -48,8 +48,7 @@ FILE* fp;
 {Variable} {return(VAR);}
 {Coment} {}
 [\n] {return(SALTO);}
-" " {}
-. {return(*yytext);}
+[^ ] {return(*yytext);}
 %%
 
 int yywrap(){} 
