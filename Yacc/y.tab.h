@@ -57,7 +57,10 @@ extern int yydebug;
     SALTO = 267,
     MULT = 268,
     MENOS = 269,
-    MAS = 270
+    MAS = 270,
+    UNINDENT = 271,
+    INDENT = 272,
+    NORMAL = 273
   };
 #endif
 /* Tokens.  */
@@ -74,6 +77,9 @@ extern int yydebug;
 #define MULT 268
 #define MENOS 269
 #define MAS 270
+#define UNINDENT 271
+#define INDENT 272
+#define NORMAL 273
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
