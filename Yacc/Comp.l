@@ -98,21 +98,16 @@ FILE* fp;
  int lineno = 0;
 <initial>{clss}          { yyless(0); BEGIN(indent); push(0); }
 <indent>[ \t]*           { int depth = indent_depth(yytext);
-                              printf("%d\n",depth);
-                              printf("%d\n",peek());
                           if (depth < peek()) {
-                              printf("UNINDENT.\n");
                               pop();
                               yyless(0);
                               return(UNINDENT);}
                           BEGIN(normal);
                           if (depth > peek()) {
-                              printf("INDENT.\n ");
                               push(depth);
                               return INDENT; }}
 <indent>.            { yyless(0);
                           if (peek() > 0) {
-                              printf("UNINDENT.\n");
                               pop();
                               return(UNINDENT);}
                           BEGIN(normal); }

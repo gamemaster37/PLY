@@ -1,7 +1,7 @@
 def eval(xi, exp)
     ans = False
     a,b = 3
-    for i in range(len(exp)):
+    for i in range len(exp)):
         part = True
         for j in range(len(exp[i])) :
             part = part and xi[exp[i][j]]

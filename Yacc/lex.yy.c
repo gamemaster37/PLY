@@ -949,31 +949,26 @@ case 2:
 YY_RULE_SETUP
 #line 100 "Comp.l"
 { int depth = indent_depth(yytext);
-                              printf("%d\n",depth);
-                              printf("%d\n",peek());
                           if (depth < peek()) {
-                              printf("UNINDENT.\n");
                               pop();
                               yyless(0);
                               return(UNINDENT);}
                           BEGIN(normal);
                           if (depth > peek()) {
-                              printf("INDENT.\n ");
                               push(depth);
                               return INDENT; }}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 113 "Comp.l"
+#line 109 "Comp.l"
 { yyless(0);
                           if (peek() > 0) {
-                              printf("UNINDENT.\n");
                               pop();
                               return(UNINDENT);}
                           BEGIN(normal); }
 	YY_BREAK
 case YY_STATE_EOF(indent):
-#line 119 "Comp.l"
+#line 114 "Comp.l"
 { if (peek() > 0) {
                               pop();
                               return(UNINDENT);}
@@ -982,64 +977,64 @@ case YY_STATE_EOF(indent):
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 123 "Comp.l"
+#line 118 "Comp.l"
 { lineno++; }
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
-#line 124 "Comp.l"
+#line 119 "Comp.l"
 { lineno++; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 125 "Comp.l"
+#line 120 "Comp.l"
 { parens++; return *yytext; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 126 "Comp.l"
+#line 121 "Comp.l"
 { if (--parens < 0) parens = 0;
                           return *yytext; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 128 "Comp.l"
+#line 123 "Comp.l"
 {return(MULT);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 129 "Comp.l"
+#line 124 "Comp.l"
 {return(MAS);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 130 "Comp.l"
+#line 125 "Comp.l"
 {return(MENOS);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 131 "Comp.l"
+#line 126 "Comp.l"
 {return(OPAL);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 132 "Comp.l"
+#line 127 "Comp.l"
 {return(OPASS);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 133 "Comp.l"
+#line 128 "Comp.l"
 {return(COMP);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 134 "Comp.l"
+#line 129 "Comp.l"
 {return(*yytext);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 135 "Comp.l"
+#line 130 "Comp.l"
 {
     int i=0;
       while(yytext[i]) {
@@ -1052,63 +1047,63 @@ YY_RULE_SETUP
 case 16:
 /* rule 16 can match eol */
 YY_RULE_SETUP
-#line 143 "Comp.l"
+#line 138 "Comp.l"
 {return(STR);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 144 "Comp.l"
+#line 139 "Comp.l"
 {return(INT);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 145 "Comp.l"
+#line 140 "Comp.l"
 {return(DEC);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 146 "Comp.l"
+#line 141 "Comp.l"
 {return(LONG);}  
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 147 "Comp.l"
+#line 142 "Comp.l"
 {return(IMG);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 148 "Comp.l"
+#line 143 "Comp.l"
 {return(VAR);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 149 "Comp.l"
+#line 144 "Comp.l"
 {}
 	YY_BREAK
 case 23:
 /* rule 23 can match eol */
 YY_RULE_SETUP
-#line 150 "Comp.l"
+#line 145 "Comp.l"
 { lineno++;
                           if (parens == 0){BEGIN(indent);} return(SALTO); }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 152 "Comp.l"
+#line 147 "Comp.l"
 {}
 	YY_BREAK
 case 25:
 /* rule 25 can match eol */
 YY_RULE_SETUP
-#line 153 "Comp.l"
+#line 148 "Comp.l"
 {return(*yytext);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 155 "Comp.l"
+#line 150 "Comp.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1112 "lex.yy.c"
+#line 1107 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(normal):
 	yyterminate();
@@ -2122,7 +2117,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 155 "Comp.l"
+#line 150 "Comp.l"
 
 
 void count(void)

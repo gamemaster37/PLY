@@ -1720,8 +1720,8 @@ int main( int argc, char *argv[] )
      }
    int yydebug = 5;
 	yyparse(); 
-    fprintf(yyout,"\nTabla de Identificadores \n");
-    printf("Exitoooooooo..... PARA SERVIRTE \n");
+    
+    printf("Success \n");
    }
    else if( argc > 2 ) {
       printf("Too many arguments supplied.\n");
@@ -1735,5 +1735,5 @@ int main( int argc, char *argv[] )
 
 yyerror(char *s)
 {
-    fprintf(stderr, " line %d: %s\n", column, s);
+    printf(" line %d: %s\n", column, s);
 }
