@@ -12,6 +12,9 @@ Decimal [0-9]*"."[0-9]+([Ee][+-]?[0-9]+)?
 Long {Integer}(l|L)  
 Imaginario ({Integer}|{Decimal})(j|J) 
 Coment "#".*
+Aux1 "["|"("|"{"
+Aux2 "]"|")"|"}"
+clss .*|\n
 
 %{
 #include <stdio.h>
@@ -19,33 +22,117 @@ Coment "#".*
 #include <ctype.h>
 #include <stdlib.h>
 #include "y.tab.h"
+int MAXSIZE = 50;       
+int stack[50];     
+int top = -1;            
+
+int isempty() {
+
+   if(top == -1)
+      return 1;
+   else
+      return 0;
+}
+   
+int isfull() {
+
+   if(top == MAXSIZE)
+      return 1;
+   else
+      return 0;
+}
+
+int peek() {
+   return stack[top];
+}
+
+int pop() {
+   int data;
+	
+   if(!isempty()) {
+      data = stack[top];
+      top = top - 1;   
+      return data;
+   } else {
+      printf("Could not retrieve data, Stack is empty.\n");
+   }
+}
+
+int push(int data) {
+
+   if(!isfull()) {
+      top = top + 1;   
+      stack[top] = data;
+   } else {
+      printf("Could not insert data, Stack is full.\n");
+   }
+}
 int column = 1;
-static std::stack<int> indent;
-static int indent_depth(const char *);
+int parens = 0;
+static int indent_depth(const char *data){
+    int i,j=0;
+      for(i=0;i<strlen(data);i++){
+			if(data[i]==' '){
+        j++;
+       }
+     }    
+    return j/2;
+};
+
 void count(void);
 FILE* fp;
 %}
 
  /* This is a sub-parser (state) for indentation-sensitive scoping */
-%x initial
 %x indent
-%s normal
+%x normal
 
  /* %option 8bit reentrant bison-bridge */
+
 %option warn
 %option nodefault
 %option yylineno
 %option noyywrap
+
 %%
  int lineno = 0;
-"*" {return(MULT);}
-"+" {return(MAS);}
-"-" {return(MENOS);}
-{OperaAlg} {return(OPAL);}
-{Operaassing} {return(OPASS);}
-{Comparator} {return(COMP);}
-{Simbolos} {return(*yytext);}
-{Clave} {
+<initial>{clss}          { yyless(0); BEGIN(indent); push(0); }
+<indent>[ \t]*           { int depth = indent_depth(yytext);
+                              printf("%d\n",depth);
+                              printf("%d\n",peek());
+                          if (depth < peek()) {
+                              printf("UNINDENT.\n");
+                              pop();
+                              yyless(0);
+                              return(UNINDENT);}
+                          BEGIN(normal);
+                          if (depth > peek()) {
+                              printf("INDENT.\n ");
+                              push(depth);
+                              return INDENT; }}
+<indent>.            { yyless(0);
+                          if (peek() > 0) {
+                              printf("UNINDENT.\n");
+                              pop();
+                              return(UNINDENT);}
+                          BEGIN(normal); }
+<indent><<EOF>>      { if (peek() > 0) {
+                              pop();
+                              return(UNINDENT);}
+                          BEGIN(normal); }
+<indent>[ \t]*\n     { lineno++; }
+<indent>[ \t]*#.*\n  { lineno++; }
+<normal>{Aux1}                 { parens++; return *yytext; }
+<normal>{Aux2}                   { if (--parens < 0) parens = 0;
+                          return *yytext; }
+<normal>"*" {return(MULT);}
+<normal>"+" {return(MAS);}
+<normal>"-" {return(MENOS);}
+<normal>{OperaAlg} {return(OPAL);}
+<normal>{Operaassing} {return(OPASS);}
+<normal>{Comparator} {return(COMP);}
+<normal>{Simbolos} {return(*yytext);}
+<normal>{Clave} {
     int i=0;
       while(yytext[i]) {
 			yytext[i]=toupper(yytext[i]);
@@ -53,45 +140,19 @@ FILE* fp;
       }
    return(*yytext);
 }
-{String} {return(STR);}
-{Integer} {return(INT);}
-{Decimal} {return(DEC);}
-{Long} {return(LONG);}  
-{Imaginario} {return(IMG);}
-{Variable} {return(VAR);}
-{Coment} {}
-<INITIAL>.*|\n          { yyless(0); BEGIN(LINESTART); indent.push(0); }
-<LINESTART>[ \t]*       { int depth = indent_depth(yytext);
-                          if (depth < indent.top()) {
-                              indent.pop();
-                              yyless(0);
-                              return UNINDENT; }
-                          BEGIN(NORMAL);
-                          if (depth > indent.top()) {
-                              indent.push(depth);
-                              return INDENT; } }
-<LINESTART>.            { yyless(0);
-                          if (indent.top() > 0) {
-                              indent.pop();
-                              return UNINDENT; }
-                          BEGIN(NORMAL); }
-<LINESTART><<EOF>>      { if (indent.top() > 0) {
-                              indent.pop();
-                              return UNINDENT; }
-                          BEGIN(NORMAL); }
-<LINESTART>[ \t]*\n     { lineno++; }
-<LINESTART>[ \t]*#.*\n  { lineno++; }
-[[({]                   { parens++; return *yytext; }
-[])}]                   { if (--parens < 0) parens = 0;
-                          return *yytext; }
-\n                      { lineno++;
-                          if (parens == 0) BEGIN(LINESTART); }
+<normal>{String} {return(STR);}
+<normal>{Integer} {return(INT);}
+<normal>{Decimal} {return(DEC);}
+<normal>{Long} {return(LONG);}  
+<normal>{Imaginario} {return(IMG);}
+<normal>{Variable} {return(VAR);}
+<normal>{Coment} {}
+<normal>\n                      { lineno++;
+                          if (parens == 0){BEGIN(indent);} return(SALTO); }
+<normal>[ ] {}
+<normal>[^ ] {return(*yytext);}
 
-(.|\n)  { std::cerr << g_current_filename << ":" << yylineno << ":" << yycolumn << ": Unexpected character: " << yytext << std::endl; exit(1); }
-[^ ] {return(*yytext);}
 %%
-
-int yywrap(){} 
 void count(void)
 {
 	int i;
