@@ -5,6 +5,6 @@ rm lex.yy.c &
 rm y.tab.c &
 rm y.tab.h &
 yacc -d  Comp.y &&
-flex  Comp.l &&
+flex -d Comp.l &&
 cc lex.yy.c y.tab.c &&
 ./a.out prueba | tee salida.txt
