@@ -115,11 +115,11 @@ FILE* fp;
                               pop();
                               return(UNINDENT);}
                           BEGIN(normal); }
-<indent>[ \t]*\n     { lineno++; }
-<indent>[ \t]*#.*\n  { lineno++; }
-<normal>{Aux1}                 { parens++; return *yytext; }
-<normal>{Aux2}                   { if (--parens < 0) parens = 0;
-                          return *yytext; }
+<indent>[ \t]*\n     { lineno++; return(SALTO);}
+<indent>[ \t]*#.*\n  { lineno++; return(SALTO);}
+<normal>{Aux1}                 { parens++; return(*yytext); }
+<normal>{Aux2}                   { if (--parens < 0){parens = 0;} 
+                          return(*yytext); }
 <normal>"*" {return(MULT);}
 <normal>"+" {return(MAS);}
 <normal>"-" {return(MENOS);}

@@ -978,24 +978,24 @@ case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
 #line 118 "Comp.l"
-{ lineno++; }
+{ lineno++; return(SALTO);}
 	YY_BREAK
 case 5:
 /* rule 5 can match eol */
 YY_RULE_SETUP
 #line 119 "Comp.l"
-{ lineno++; }
+{ lineno++; return(SALTO);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 120 "Comp.l"
-{ parens++; return *yytext; }
+{ parens++; return(*yytext); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 121 "Comp.l"
-{ if (--parens < 0) parens = 0;
-                          return *yytext; }
+{ if (--parens < 0){parens = 0;} 
+                          return(*yytext); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
